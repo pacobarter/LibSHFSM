@@ -1,7 +1,9 @@
 package com.barterapps.libSHFSM;
 
-public interface Transition {
+public interface SHFSMTransition {
 
+	public int getID();
+	
 	public boolean checkFired();
 	
 	public void onStart();

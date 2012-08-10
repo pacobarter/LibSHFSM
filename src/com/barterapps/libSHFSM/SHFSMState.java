@@ -1,6 +1,6 @@
 package com.barterapps.libSHFSM;
 
-public interface State {
+public interface SHFSMState {
 
 	public int getID();
 	
@@ -9,5 +9,4 @@ public interface State {
 	public void onStep();
 	
 	public void onExit();
-	
 }
