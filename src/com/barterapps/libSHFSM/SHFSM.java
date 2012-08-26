@@ -9,7 +9,7 @@ import java.util.Iterator;
 
 public class SHFSM implements SHFSMState {
 	private int id;
-	
+
 	private Hashtable<Integer, SHFSMState> states = null;
 	private Hashtable<Integer, SHFSMTransition> transitions = null;
 	
@@ -129,12 +129,13 @@ public class SHFSM implements SHFSMState {
 		states.put(state.getID(), state);
 	}
 	
-	public void addTransition(SHFSMTransition trans) throws Exception{
+	public void addTransition(SHFSMTransition trans, int idNextState) throws Exception{
 		if(trans == null){
 			throw new Exception("[SHFSMManager:addTransition] Param 'trans' cannot be null");
 		}
 		
 		transitions.put(trans.getID(), trans);
+		transitionNextState.put(trans.getID(), idNextState);
 	}
 	
 	public void addTransitionToState(int idState, int idTransition) throws Exception{
@@ -155,10 +156,6 @@ public class SHFSM implements SHFSMState {
 		}
 		
 		arrT.add(idTransition);
-	}
-	
-	public void setTransitionNextState(int idTransition, int idNextState){
-		transitionNextState.put(idTransition, idNextState);
 	}
 	
 	public synchronized SHFSMState getState(int idState){
@@ -217,10 +214,6 @@ public class SHFSM implements SHFSMState {
 						trans.onStep();
 						
 						if(trans.isCompleted()){
-							//	'exit' actual state
-							state = getState(getIdActualState());
-							state.onExit();
-
 							//	set next state
 							setIdActualState(transitionNextState.get(trans.getID()));
 							
@@ -250,6 +243,12 @@ public class SHFSM implements SHFSMState {
 								trans.onStart();
 								
 								execTransition = true;
+
+								//	'exit' actual state
+								state = getState(getIdActualState());
+								state.onExit();
+								
+								break;
 							}
 						}
 					}
@@ -278,6 +277,6 @@ public class SHFSM implements SHFSMState {
 			}
 		}
     }
-	
+
 	
 }
