@@ -3,8 +3,8 @@ LibSHFSM
 
 _Simple Hierachycal Finite State Machine Library_ written in java.
 
-It provides a framework to make use of the FSM abstraction so you can focus on your app logic. Except the main
-core, the interface with the "client" app is based on java Interfaces, so being less intrusive.
+It provides a framework to make use of the FSM abstraction so you can focus on your app logic. 
+The interface with the "client" app is based on (java) Interfaces, so being less intrusive.
 
 
 
